@@ -1,0 +1,22 @@
+<div class="container">
+  <br>
+  <div id="filterDiv">
+    <button [ngClass]="selectedButton === 'allButton' ? 'filterClicked' : 'filter'" (click)="getAllTasks()">Tất cả: {{ allTasksCount }}</button>
+    <button [ngClass]="selectedButton === 'completedButton' ? 'filterClicked' : 'filter'" (click)="getCompletedTasks()">Đã hoàn thành: {{ completedTasksCount }}</button>
+    <button [ngClass]="selectedButton === 'uncompletedButton' ? 'filterClicked' : 'filter'" (click)="getUncompletedTasks()">Chưa hoàn thành: {{ uncompletedTasksCount }}</button>
+  </div>
+  <br/>
+  <div>
+      <input #taskInput name="taskInput">
+      <button (click)="addTask(taskInput.value)">Add</button>
+  </div>
+  <br/>
+  <br/>
+  <div id="list" class="list" cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+    <div *ngFor="let item of currentTasks" cdkDrag>
+      <input type="checkbox" (change)="changeStatus($event, tasks.indexOf(item))" [checked]="item.checkStatus">
+      <span [style.color]="item.checkStatus ? 'red' : 'black'">{{item.task}}</span>
+      <button (click)="removeTask(tasks.indexOf(item))">Delete</button>
+    </div>
+  </div>
+</div>
